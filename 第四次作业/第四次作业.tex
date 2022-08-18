@@ -1,0 +1,219 @@
+\documentclass[12pt, openany]{article}
+
+\usepackage{geometry}
+\geometry{a4paper, centering, scale=0.8}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[version=3]{mhchem}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[UTF8]{ctex}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{braket}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\lstset{
+    numbers=left, 
+    numberstyle= \tiny,
+	basicstyle=\small, 
+    keywordstyle= \color{ blue!70},
+    commentstyle= \color{red!50!green!50!blue!50}, 
+    frame=shadowbox, % 阴影效果
+    rulesepcolor= \color{ red!20!green!20!blue!20} ,
+    escapeinside=``, % 英文分号中可写入中文
+	breaklines=true
+    xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+    framexleftmargin=2em
+}
+
+\lstdefinestyle{Python}{
+	language        =   Python, 
+	basicstyle      =   \zihao{-5}\ttfamily,
+	numberstyle     =   \zihao{-5}\ttfamily,
+	keywordstyle    =   \color{blue},
+	keywordstyle    =   [2] \color{teal},
+	stringstyle     =   \color{magenta},
+	commentstyle    =   \color{red}\ttfamily,
+	breaklines      =   true,   
+	columns         =   fixed,  
+	basewidth       =   0.5em,
+}
+
+\author{陈硕航}
+\date{\today}
+\title{第四次作业}
+
+\begin{document}
+	\maketitle
+	\section{用一位无限深势井的波函数的线性组合去近似谐振子}
+	\subsection{代码实现}
+	代码参见“第四次作业计算.py”以及“第四次作业计算Ver2.py”
+	\subsection{结果展示}
+	输出得到的前20个本征能量结果如下：
+	\begin{lstlisting}
+[ 0.159075  0.477226  0.795377  1.113528  1.431679 
+  1.749830  2.067981  2.386131  2.704282  3.022433
+  3.340584  3.658735  3.976886  4.295036  4.613187
+  4.931338  5.249489  5.567640  5.885791  6.203942 ]
+	\end{lstlisting}
+	输出的本征能量满足$E_1:E_2: \cdots : E_n=1:3: \cdots :(2n-1)$，符合物理课本中谐振子本征能级的比例。
+	前20个本征能级对应的波函数图像如下所示：
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.3\textwidth]{Figure 1.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 2.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 3.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 4.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 5.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 6.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 7.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 8.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 9.pdf}
+		\caption{谐振子对应量子数$n = 1,2,...,9$的波函数}
+	\end{figure}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.3\textwidth]{Figure 10.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 11.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 12.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 13.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 14.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 15.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 16.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 17.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 18.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 19.pdf}
+		\includegraphics[width=0.3\textwidth]{Figure 20.pdf}
+		\caption{谐振子对应量子数$n = 10,11,...,20$的波函数}
+	\end{figure}
+	\newpage
+	\subsection{关于步长的选择}
+	步长选择只需要满足波函数归一化的性质即可。
+	取$N=1001$的时候，波函数$\phi_1$归一化得到的结果为\verb|0.999001|，说明误差在0.1\% 左右。取$N=10001$乃至$N=100001$虽然更加精确，归一化得到的结果为\verb|0.999900|以及\verb|0.999990|但是计算耗费时间更长（$N=1001$总计算时间为10.771s，$N=10001$总计算时间为40.734s，$N=100001$计算时间为383.023s），故此处只取$N=1001$。
+
+	附$N=10001$的时候计算得到的前20个能量本征态如下：
+	\begin{lstlisting}
+		[ 0.159147  0.477441  0.795735  1.114029  1.432323
+		  1.750617  2.068911  2.387205  2.705499  3.023793
+		  3.342087  3.660381  3.978675  4.296969  4.615263
+		  4.933557  5.251851  5.570145  5.888438  6.206732 ]
+	\end{lstlisting}
+	$N=100001$的时候计算得到的前20个能量本征态如下：
+	\begin{lstlisting}
+[ 0.159154  0.477462  0.795771  1.114079  1.432387
+  1.750696  2.069004  2.387312  2.705621  3.023929
+  3.342237  3.660545  3.978854  4.297162  4.615470
+  4.933779  5.252087  5.570395  5.888703  6.207012 ]
+	\end{lstlisting}
+	\subsection{关于基组个数的选择}
+	考虑到应当选取的本征能量为前20个，因此选取的基组个数至少应当为40个左右。$M = 40$的时候计算得到的前20个本征能量如下：
+	\begin{lstlisting}
+[ 0.182228  0.605406  1.244401  2.009672  3.176784
+  4.304451  6.064712  7.513455  9.913872  11.638677
+  14.725080 16.680558 20.498633 22.639318 27.234742 
+  29.515141 34.933609 37.308211 43.595450 46.018728 ]
+	\end{lstlisting}
+	为了保证前20个本征能量均收敛，再次往上选取20个基组至$M = 60$得到结果如下： 
+	\begin{lstlisting}
+[ 0.159706  0.483597  0.836079  1.230015  1.740876
+  2.288750  3.040978  3.754312  4.771611  5.638773
+  6.935551  7.942768  9.532824  10.666176 12.563329
+  13.808899 16.027015 17.370889 19.923861 21.352133]
+	\end{lstlisting}
+
+	可见此时结果仍然没有收敛。每次20个往上叠加基组个数，最终基组个数提升至$M = 180$及以上时，第20个本征态能量已经在小数点后第6位上收敛。
+	\subsection{关于势箱长度的选择}
+	势箱长度的选择只需要包含前20个本征能量对应波函数即可，最开始取$L=20$得到的图像如下图所示：
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{Figure 20 L=20.pdf}
+		\caption{$L=20$时候谐振子对应量子数$n=20$的波函数}
+	\end{figure}
+	因此取$L = 5$即可满足要求。
+	\section{经典谐振子的周期轨道}
+	\subsection{解析解}
+	哈密顿量
+		$H(x,p)=\dfrac{p^2}{2m} + \dfrac{1}{2}m\omega^2x^2$
+	根据哈密顿正则方程
+	\begin{equation}
+		\left\{\begin{matrix}
+			\dot{p}=-\dfrac{\partial H}{\partial x}=-\partial_x V(x)\\
+			\dot{x}=\dfrac{\partial H}{\partial m} = \dfrac{p}{m}
+		\end{matrix}\right.
+	\end{equation}
+
+因此$\ddot{x}=-\omega^2 x$，$x = c_1\sin\omega t + c_2\cos\omega t$
+又根据初始条件
+\begin{equation}
+	\left\{\begin{matrix}
+		x(t=0) = x_0 \\
+		p(t=0) = p_0
+	\end{matrix}\right.
+\end{equation}
+解得
+\begin{equation}
+	\left\{\begin{matrix}
+		x(t) = \dfrac{p_0}{m\omega}\sin\omega t + x_0\cos\omega t \\
+		p(t) = -m\omega x_0\sin\omega t + p_0\cos\omega t
+	\end{matrix}\right.
+\end{equation}
+	\subsection{代码实现}
+	代码参见"第二题向前欧拉法.py"和"第二题Velocity Verlet算法.py"。
+	\subsection{结果展示}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.5\textwidth]{x-t图.pdf}
+		\caption{$x-t$ 图}
+	\end{figure}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.5\textwidth]{p-t图.pdf}
+		\caption{$p-t$ 图}
+	\end{figure}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.5\textwidth]{x-p图.pdf}
+		\caption{$x-p$ 图}
+	\end{figure}
+
+	笔者采用向前欧拉法和Velocity Verlet算法两种不同的方法计算了能量随时间的变化，得到结果如图\ref{Euler}和图\ref{Velocity}：
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.5\textwidth]{E-t图.pdf}
+		\caption{向前Euler法得到的$E-t$ 图}
+		\label{Euler}
+	\end{figure}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=0.5\textwidth]{E-t图1.pdf}
+		\caption{Velocity Verlet法得到的$E-t$ 图}
+		\label{Velocity}
+	\end{figure}
+
+	从上述方法可以看出，Velocity Verlet法是一种更好的数值近似方法。
+	\section{谐振子解析解}
+	\subsection{波函数表达}
+		代码参见“第三题计算波函数.py”。
+		令$c = (\dfrac{m\omega}{\pi \hslash})^{1/4}$，$k = \dfrac{m\omega}{2\hslash}$
+		得到的波函数如下：（假设不考虑归一化系数）
+		\begin{align}
+			\phi_0(x) &= c e^{- k x^{2}}\notag \\
+			\phi_1(x) &= - 2 c k x e^{- k x^{2}} \notag\\
+			\phi_2(x) &= 4 c k^{2} x^{2} e^{- k x^{2}} - 2 c k e^{- k x^{2}}\notag \\
+			\phi_3(x) &= - 8 c k^{3} x^{3} e^{- k x^{2}} + 12 c k^{2} x e^{- k x^{2}}\notag\\
+			\phi_4(x) &= 16 c k^{4} x^{4} e^{- k x^{2}} - 48 c k^{3} x^{2} e^{- k x^{2}} + 12 c k^{2} e^{- k x^{2}} \notag\\
+			\cdots \notag \\
+			\phi_{19}(x) &= - 524288 c k^{19} x^{19} e^{- k x^{2}} + 44826624 c k^{18} x^{17} e^{- k x^{2}} - 1524105216 c k^{17} x^{15} e^{- k x^{2}} + 26671841280 c k^{16} x^{13} e^{- k x^{2}} - 260050452480 c k^{15} x^{11} e^{- k x^{2}} + 1430277488640 c k^{14} x^{9} e^{- k x^{2}} - 4290832465920 c k^{13} x^{7} e^{- k x^{2}} + 6436248698880 c k^{12} x^{5} e^{- k x^{2}} - 4022655436800 c k^{11} x^{3} e^{- k x^{2}} + 670442572800 c k^{10} x e^{- k x^{2}} \notag
+		\end{align}
+	
+		如果考虑归一化系数的话，根据$\ket{\phi_{n+1}} = \dfrac{\hat{a}_+}{\sqrt{n+1}}\ket{\phi_{n}}$，我们得到
+		$\braket{x|\phi_n} = \sqrt{\dfrac{1}{2^n n!}}c e^{-kx^2} H_n(\sqrt{k}x)$
+		其中$H_n(x)$为Hermite多项式：
+		\begin{equation}
+			H_n(x) = (-1)^n e^{x^{2}} \dfrac{\mathrm{d}^n}{\mathrm{d}^nx}(e^{-{x^2}})
+		\end{equation}
+\end{document}
